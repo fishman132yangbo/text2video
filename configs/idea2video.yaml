@@ -1,0 +1,39 @@
+chat_model:
+  init_args:
+    model: qwen-plus
+    model_provider: openai
+    api_key:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  # Rate limits for chat model API calls
+  # Set to null to disable rate limiting for this service
+  max_requests_per_minute: 500
+  max_requests_per_day: 2000
+
+image_generator:
+  class_path: tools.ImageGeneratorDashScopeAPI
+  init_args:
+    api_key:
+    model: qwen-image
+    edit_model: qwen-image-edit
+    base_url: https://dashscope.aliyuncs.com
+  # Rate limits for image generation API calls
+  # Set to null to disable rate limiting for this service
+  max_requests_per_minute: 10
+  max_requests_per_day: 500
+
+
+video_generator:
+  class_path: tools.VideoGeneratorDashScopeAPI
+  init_args:
+    api_key:
+    t2v_model: wanx2.1-t2v-turbo
+    ff2v_model: wanx2.1-i2v-turbo
+    flf2v_model: wanx2.1-kf2v-plus
+    base_url: https://dashscope.aliyuncs.com
+  # Rate limits for video generation API calls
+  # Set to null to disable rate limiting for this service
+  max_requests_per_minute: 2
+  max_requests_per_day: 10
+
+
+working_dir: .working_dir/idea2video

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE" ]]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+usage() {
+  cat <<EOF
+Usage:
+  vimax web                         Start the browser video generation console
+  vimax web --host 0.0.0.0          Bind the web server to all interfaces
+  vimax web --port 7860             Start the web server on a specific port
+EOF
+}
+
+if [[ $# -lt 1 ]]; then
+  usage
+  exit 2
+fi
+
+command="$1"
+shift
+
+case "$command" in
+  web)
+    if [[ "${1:-}" == "--help" || "${1:-}" == "-h" || "${1:-}" == "help" ]]; then
+      usage
+      exit 0
+    fi
+    if [[ -n "${VIMAX_PYTHON_CMD:-}" ]]; then
+      exec "$VIMAX_PYTHON_CMD" "$ROOT/web_server.py" "$@"
+    fi
+    venv_python="$ROOT/.venv/bin/python3"
+    if [[ -x "$venv_python" ]]; then
+      exec "$venv_python" "$ROOT/web_server.py" "$@"
+    fi
+    exec uv run python "$ROOT/web_server.py" "$@"
+    ;;
+  --help|-h|help)
+    usage
+    ;;
+  *)
+    echo "error: unknown command: $command" >&2
+    usage >&2
+    exit 2
+    ;;
+esac

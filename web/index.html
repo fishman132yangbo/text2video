@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>text2video 视频控制台</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">text2video</p>
+          <h1>视频生成控制台</h1>
+        </div>
+        <div class="status-pill" id="connectionStatus">就绪</div>
+      </header>
+
+      <section class="workspace">
+        <form class="panel composer" id="jobForm">
+          <div class="mode-switch" role="tablist" aria-label="生成模式">
+            <button class="mode-button active" type="button" data-mode="idea2video">创意生成</button>
+            <button class="mode-button" type="button" data-mode="script2video">剧本生成</button>
+          </div>
+
+          <label class="field" id="ideaField">
+            <span>创意</span>
+            <textarea id="ideaInput" name="idea" rows="8">小狗在草地上追蝴蝶</textarea>
+          </label>
+
+          <label class="field hidden" id="scriptField">
+            <span>剧本</span>
+            <textarea id="scriptInput" name="script" rows="10">外景. 城市运河 - 夜
+一艘小纸船在大雨中漂流。老灯塔忽然亮起，把温暖的光束投向水面。
+纸船转向，避开漂浮的路牌和霓虹窗影。</textarea>
+          </label>
+
+          <label class="field">
+            <span>生成要求</span>
+            <textarea id="requirementInput" name="user_requirement" rows="4">不超过 3 个场景，节奏清晰，有电影感。</textarea>
+          </label>
+
+          <div class="form-row">
+            <label class="field compact">
+              <span>风格</span>
+              <input id="styleInput" name="style" value="电影感，温暖实景光" />
+            </label>
+            <button class="primary-button" id="submitButton" type="submit">
+              <span class="button-icon">▶</span>
+              开始生成
+            </button>
+          </div>
+        </form>
+
+        <aside class="panel monitor">
+          <div class="monitor-head">
+            <div>
+              <p class="eyebrow">任务</p>
+              <h2 id="jobTitle">暂无任务</h2>
+            </div>
+            <span class="job-state" id="jobState">待命</span>
+          </div>
+
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <ol class="timeline" id="timeline"></ol>
+
+          <div class="video-wrap hidden" id="videoWrap">
+            <video id="videoPlayer" controls playsinline></video>
+            <a class="download-link" id="downloadLink" href="#">下载视频</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel log-panel">
+        <div class="log-head">
+          <h2>事件日志</h2>
+          <button class="ghost-button" id="clearLogButton" type="button">清空</button>
+        </div>
+        <div class="log-stream" id="logStream"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

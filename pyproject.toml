@@ -1,0 +1,25 @@
+[project]
+name = "autolongvideogeneration"
+version = "1.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.12.14",
+    "fastapi>=0.115.0",
+    "langchain>=0.3.26",
+    "langchain-openai>=0.3.27",
+    "moviepy>=2.2.1",
+    "openai>=1.95.0",
+    "opencv-python",
+    "pillow>=11.3.0",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.4",
+    "scenedetect[opencv]>=0.6.7.1",
+    "tenacity>=9.1.2",
+    "uvicorn>=0.30.0",
+]
+
+[[index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
